@@ -107,7 +107,9 @@ export function pitch(request) {
         }
         this[NS](text, query);
         if (text.locals && typeof resultSource !== 'undefined') {
-          resultSource += `\nmodule.exports = ${JSON.stringify(text.locals)};`;
+          Object.keys(text.locals).forEach(local => {
+            resultSource += `\nexport const ${local} = ${JSON.stringify(text.locals[local])};`;
+          });
         }
       } catch (e) {
         return callback(e);
