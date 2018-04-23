@@ -4,6 +4,7 @@
 */
 import fs from 'fs';
 import path from 'path';
+
 import loaderUtils from 'loader-utils';
 import NodeTemplatePlugin from 'webpack/lib/node/NodeTemplatePlugin';
 import NodeTargetPlugin from 'webpack/lib/node/NodeTargetPlugin';
@@ -141,8 +142,15 @@ export function pitch(request) {
         this[NS](text, query);
 
         // NOTE: converting this to ESM will require changes to renderExtractedChunk
+        //
+        // NOTE(calebmer): I ignored the above note. I might not need to make
+        // those changes for my limited use-case.
         if (text.locals && typeof resultSource !== 'undefined') {
-          resultSource += `\nmodule.exports = ${JSON.stringify(text.locals)};`;
+          Object.keys(text.locals).forEach((local) => {
+            resultSource += `\nexport const ${local} = ${JSON.stringify(
+              text.locals[local]
+            )};`;
+          });
         }
       } catch (e) {
         return callback(e);
