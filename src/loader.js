@@ -146,11 +146,7 @@ export function pitch(request) {
         // NOTE(calebmer): I ignored the above note. I might not need to make
         // those changes for my limited use-case.
         if (text.locals && typeof resultSource !== 'undefined') {
-          Object.keys(text.locals).forEach((local) => {
-            resultSource += `\nexport const ${local} = ${JSON.stringify(
-              text.locals[local]
-            )};`;
-          });
+          resultSource += `\nexport default ${JSON.stringify(text.locals)};`;
         }
       } catch (e) {
         return callback(e);
