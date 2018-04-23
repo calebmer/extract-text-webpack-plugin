@@ -1,6 +1,6 @@
 {
   "name": "@calebmer/extract-text-webpack-plugin",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "Extract text from bundle into a file.",
   "license": "MIT",
   "repository": "webpack-contrib/extract-text-webpack-plugin",
